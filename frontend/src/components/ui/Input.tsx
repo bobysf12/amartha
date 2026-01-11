@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react';
-import './Input.css';
+import { useRef, useState } from "react";
+import "./Input.css";
 
 type InputProps = {
 	id?: string;
 	label: string;
-	type: 'text' | 'email';
+	type: "text" | "email";
 	name?: string;
 	value: string;
 	placeholder?: string;
@@ -12,7 +12,7 @@ type InputProps = {
 	disabled?: boolean;
 	loading?: boolean;
 	required?: boolean;
-	onChange: (value: string) => void;
+	onChange?: (value: string) => void;
 	onBlur?: () => void;
 	onFocus?: () => void;
 };
@@ -48,7 +48,9 @@ const Input = ({
 	};
 
 	return (
-		<div className={`input ${error ? 'input--error' : ''} ${disabled ? 'input--disabled' : ''} ${loading ? 'input--loading' : ''}`}>
+		<div
+			className={`input ${error ? "input--error" : ""} ${disabled ? "input--disabled" : ""} ${loading ? "input--loading" : ""}`}
+		>
 			<label htmlFor={inputId} className="input__label">
 				{label}
 				{required && <span className="input__required">*</span>}
@@ -62,7 +64,7 @@ const Input = ({
 					value={value}
 					placeholder={placeholder}
 					disabled={disabled || loading}
-					className={`input__field ${isFocused ? 'input__field--focused' : ''}`}
+					className={`input__field ${isFocused ? "input__field--focused" : ""}`}
 					onChange={(e) => onChange(e.target.value)}
 					onFocus={handleFocus}
 					onBlur={handleBlur}
