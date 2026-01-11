@@ -1,0 +1,73 @@
+.employee-form-step2 {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: var(--spacing-lg);
+}
+
+.employee-form-step2__header {
+	margin-bottom: var(--spacing-lg);
+}
+
+.employee-form-step2__title {
+	font-size: 24px;
+	font-weight: 600;
+	margin: 0 0 var(--spacing-sm) 0;
+	color: var(--color-text);
+}
+
+.employee-form-step2__subtitle {
+	font-size: var(--font-size-base);
+	color: var(--color-label);
+	margin: 0;
+}
+
+.employee-form-step2__form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-lg);
+}
+
+.employee-form-step2__notes {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-sm);
+}
+
+.employee-form-step2__notes-label {
+	font-size: var(--font-size-label);
+	color: var(--color-label);
+	font-weight: 500;
+}
+
+.employee-form-step2__notes-field {
+	width: 100%;
+	min-height: 120px;
+	padding: var(--spacing-md) var(--spacing-lg);
+	font-size: var(--font-size-base);
+	color: var(--color-text);
+	background-color: var(--color-background);
+	border: 1px solid var(--color-border);
+	border-radius: var(--border-radius);
+	resize: vertical;
+	font-family: inherit;
+}
+
+.employee-form-step2__notes-field::placeholder {
+	color: #999;
+}
+
+.employee-form-step2__notes-field:hover {
+	background-color: var(--color-background-hover);
+}
+
+.employee-form-step2__notes-field:focus {
+	border-color: var(--color-focus);
+	outline: none;
+}
+
+.employee-form-step2__actions {
+	margin-top: var(--spacing-lg);
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--spacing-md);
+}

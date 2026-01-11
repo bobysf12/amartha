@@ -93,8 +93,6 @@ const EmployeeFormStep1 = ({ onNext }: EmployeeFormStep1Props) => {
 	const [allEmployees, setAllEmployees] = useState<any[]>([]);
 	const [isLoadingDepartments, setIsLoadingDepartments] = useState(false);
 
-	const hasErrors = Object.values(errors).some((error) => error !== undefined);
-
 	useEffect(() => {
 		const loadData = async () => {
 			setIsLoadingDepartments(true);
@@ -111,13 +109,10 @@ const EmployeeFormStep1 = ({ onNext }: EmployeeFormStep1Props) => {
 		loadData();
 	}, []);
 
-	const handleDepartmentSearch = useCallback(
-		async (query: string): Promise<AutocompleteOption[]> => {
-			const filtered = await apiStep1.getDepartmentsByName(query);
-			return filtered.map((dept) => ({ value: dept.id.toString(), label: dept.name }));
-		},
-		[],
-	);
+	const handleDepartmentSearch = useCallback(async (query: string): Promise<AutocompleteOption[]> => {
+		const filtered = await apiStep1.getDepartmentsByName(query);
+		return filtered.map((dept) => ({ value: dept.id.toString(), label: dept.name }));
+	}, []);
 
 	const handleDepartmentChange = useCallback(
 		async (value: string, option: AutocompleteOption) => {

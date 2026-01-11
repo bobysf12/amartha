@@ -67,6 +67,10 @@ export const apiStep1 = {
 
 export const apiStep2 = {
 	getLocations: () => request<Location[]>(API_STEP2_BASE_URL, "/locations"),
+	getLocationsByName: async (name: string): Promise<Location[]> => {
+		const locations = await request<Location[]>(API_STEP2_BASE_URL, `/locations?name_like=${name}`);
+		return locations;
+	},
 	getDetails: () => request<Detail[]>(API_STEP2_BASE_URL, "/details"),
 	getDetailsById: (id: number) => request<Detail>(API_STEP2_BASE_URL, `/details/${id}`),
 	createDetails: (data: Omit<Detail, "id">) => request<Detail>(API_STEP2_BASE_URL, "/details", "POST", data),
@@ -108,4 +112,7 @@ export type Detail = {
 	startDate: string;
 	endDate?: string;
 	salary?: number;
+	employmentType?: string;
+	notes?: string;
+	image?: string;
 };
