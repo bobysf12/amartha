@@ -1,0 +1,34 @@
+.employee-form-step1 {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: var(--spacing-lg);
+}
+
+.employee-form-step1__header {
+	margin-bottom: var(--spacing-lg);
+}
+
+.employee-form-step1__title {
+	font-size: 24px;
+	font-weight: 600;
+	margin: 0 0 var(--spacing-sm) 0;
+	color: var(--color-text);
+}
+
+.employee-form-step1__subtitle {
+	font-size: var(--font-size-base);
+	color: var(--color-label);
+	margin: 0;
+}
+
+.employee-form-step1__form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-lg);
+}
+
+.employee-form-step1__actions {
+	margin-top: var(--spacing-lg);
+	display: flex;
+	justify-content: flex-end;
+}
