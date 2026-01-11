@@ -1,0 +1,8 @@
+{
+    "locations": [
+        { "id": 1, "name": "Jakarta" },
+        { "id": 2, "name": "Depok" },
+        { "id": 3, "name": "Surabaya" }
+    ],
+    "details": []
+}
