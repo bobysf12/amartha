@@ -43,6 +43,9 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+          build-args: |
+            VITE_API_STEP1_BASE_URL=${{ secrets.VITE_API_STEP1_BASE_URL || '/api/step1' }}
+            VITE_API_STEP2_BASE_URL=${{ secrets.VITE_API_STEP2_BASE_URL || '/api/step2' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
