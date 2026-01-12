@@ -168,13 +168,14 @@ const EmployeeFormStep2 = ({
 				image: imageBase64,
 			});
 
+			onSuccess();
 			navigate("/");
 		} catch (error) {
 			console.error("Failed to submit employee data:", error);
 		} finally {
 			setIsSubmitting(false);
 		}
-	}, [formData, step1Data, validateAllFields, role]);
+	}, [formData, step1Data, validateAllFields, role, onSuccess]);
 
 	const isFormValid = useMemo(() => {
 		return formData.employmentType !== "" && formData.location !== null;

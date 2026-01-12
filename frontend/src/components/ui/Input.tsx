@@ -65,7 +65,7 @@ const Input = ({
 					placeholder={placeholder}
 					disabled={disabled || loading}
 					className={`input__field ${isFocused ? "input__field--focused" : ""}`}
-					onChange={(e) => onChange(e.target.value)}
+					onChange={(e) => onChange?.(e.target.value)}
 					onFocus={handleFocus}
 					onBlur={handleBlur}
 				/>

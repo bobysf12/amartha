@@ -125,7 +125,7 @@ const EmployeeFormStep1 = ({ onNext, initialData, onChange, hasDraft, onClearDra
 	}, []);
 
 	const handleDepartmentChange = useCallback(
-		async (value: string, option: AutocompleteOption) => {
+		async (value: string) => {
 			const department = departments.find((d) => d.id === parseInt(value, 10)) || null;
 			console.log({ value, department, departments });
 			setFormData((prev) => ({ ...prev, department, employeeId: "" }));
