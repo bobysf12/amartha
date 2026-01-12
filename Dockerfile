@@ -5,7 +5,7 @@ WORKDIR /app/frontend
 ARG VITE_API_STEP1_BASE_URL=/api/step1
 ARG VITE_API_STEP2_BASE_URL=/api/step2
 COPY frontend/package.json frontend/bun.lock ./
-RUN bun install --frozen-lockfile
+RUN bun install
 COPY frontend/ ./
 ENV VITE_API_STEP1_BASE_URL=${VITE_API_STEP1_BASE_URL}
 ENV VITE_API_STEP2_BASE_URL=${VITE_API_STEP2_BASE_URL}
