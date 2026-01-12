@@ -1,10 +1,12 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ImagePicker } from "../../ui/ImagePicker";
 import { Select } from "../../ui/Select";
 import { Autocomplete, type AutocompleteOption } from "../../ui/Autocomplete";
 import { Button } from "../../ui/Button";
 import { apiStep1, apiStep2, type Location, type BasicInfo } from "../../../utils/api";
 import "./EmployeeFormStep2.css";
+import { delay } from "../../../utils/delay";
 
 type EmployeeFormDataStep2 = {
 	image: File | null;
@@ -81,6 +83,8 @@ const EmployeeFormStep2 = ({
 	const [touched, setTouched] = useState<Record<string, boolean>>({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (onChange) {
 			onChange(formData);
@@ -151,6 +155,8 @@ const EmployeeFormStep2 = ({
 				});
 			}
 
+			await delay(3000);
+
 			const imageBase64 = formData.image ? await fileToBase64(formData.image) : undefined;
 
 			await apiStep2.createDetails({
@@ -162,13 +168,13 @@ const EmployeeFormStep2 = ({
 				image: imageBase64,
 			});
 
-			onSuccess();
+			navigate("/");
 		} catch (error) {
 			console.error("Failed to submit employee data:", error);
 		} finally {
 			setIsSubmitting(false);
 		}
-	}, [formData, step1Data, validateAllFields, onSuccess, role]);
+	}, [formData, step1Data, validateAllFields, role]);
 
 	const isFormValid = useMemo(() => {
 		return formData.employmentType !== "" && formData.location !== null;

@@ -11,6 +11,13 @@
   color: var(--color-text);
 }
 
+.employees-page__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
 .employees-page__loading,
 .employees-page__error {
   text-align: center;

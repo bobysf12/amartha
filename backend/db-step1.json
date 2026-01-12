@@ -32,6 +32,14 @@
       "role": "engineer",
       "employeeId": "LEN-001",
       "id": 2
+    },
+    {
+      "name": "test",
+      "email": "bfreedantius@gmail.com",
+      "departmentId": 3,
+      "role": "admin",
+      "employeeId": "OPE-001",
+      "id": 3
     }
   ]
 }
