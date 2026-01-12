@@ -1,5 +1,5 @@
-const API_STEP1_BASE_URL = "http://localhost:4001";
-const API_STEP2_BASE_URL = "http://localhost:4002";
+const API_STEP1_BASE_URL = import.meta.env.VITE_API_STEP1_BASE_URL || "http://localhost:4001";
+const API_STEP2_BASE_URL = import.meta.env.VITE_API_STEP2_BASE_URL || "http://localhost:4002";
 
 const transformDepartment = (dept: Department): DepartmentWithCode => ({
 	...dept,
