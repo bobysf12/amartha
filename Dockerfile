@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM oven/bun:1.1.45-alpine AS frontend-build
+FROM oven/bun:1.2.20-alpine AS frontend-build
 WORKDIR /app/frontend
 ARG VITE_API_STEP1_BASE_URL=/api/step1
 ARG VITE_API_STEP2_BASE_URL=/api/step2
@@ -11,12 +11,12 @@ ENV VITE_API_STEP1_BASE_URL=${VITE_API_STEP1_BASE_URL}
 ENV VITE_API_STEP2_BASE_URL=${VITE_API_STEP2_BASE_URL}
 RUN bun run build
 
-FROM oven/bun:1.1.45-alpine AS backend-deps
+FROM oven/bun:1.2.20-alpine AS backend-deps
 WORKDIR /app/backend
 COPY backend/package.json backend/bun.lock ./
 RUN bun install --production
 
-FROM oven/bun:1.1.45-alpine
+FROM oven/bun:1.2.20-alpine
 RUN apk add --no-cache nginx
 WORKDIR /app
 
