@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { ImagePicker } from "../../ui/ImagePicker";
 import { Select } from "../../ui/Select";
 import { Autocomplete, type AutocompleteOption } from "../../ui/Autocomplete";
@@ -23,6 +23,10 @@ type EmployeeFormStep2Props = {
 	onBack?: () => void;
 	onSuccess: () => void;
 	step1Data: BasicInfo;
+	initialData?: Partial<EmployeeFormDataStep2>;
+	onChange?: (data: EmployeeFormDataStep2) => void;
+	hasDraft?: boolean;
+	onClearDraft?: () => void;
 };
 
 const EMPLOYMENT_TYPE_OPTIONS = [
@@ -55,17 +59,31 @@ const fileToBase64 = (file: File): Promise<string> => {
 	});
 };
 
-const EmployeeFormStep2 = ({ onBack, onSuccess, step1Data }: EmployeeFormStep2Props) => {
+const EmployeeFormStep2 = ({
+	onBack,
+	onSuccess,
+	step1Data,
+	initialData,
+	onChange,
+	hasDraft,
+	onClearDraft,
+}: EmployeeFormStep2Props) => {
 	const [formData, setFormData] = useState<EmployeeFormDataStep2>({
 		image: null,
-		employmentType: "",
-		location: null,
-		notes: "",
+		employmentType: initialData?.employmentType || "",
+		location: initialData?.location || null,
+		notes: initialData?.notes || "",
 	});
 
 	const [errors, setErrors] = useState<FormErrors>({});
 	const [touched, setTouched] = useState<Record<string, boolean>>({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
+
+	useEffect(() => {
+		if (onChange) {
+			onChange(formData);
+		}
+	}, [formData, onChange]);
 
 	const handleLocationSearch = useCallback(async (query: string): Promise<AutocompleteOption[]> => {
 		const locations = await apiStep2.getLocationsByName(query);
@@ -219,6 +237,11 @@ const EmployeeFormStep2 = ({ onBack, onSuccess, step1Data }: EmployeeFormStep2Pr
 							Back
 						</Button>
 					)}
+					{hasDraft && onClearDraft && (
+						<Button type="button" variant="secondary" onClick={onClearDraft}>
+							Clear
+						</Button>
+					)}
 					<Button type="submit" variant="primary" disabled={!isFormValid || isSubmitting}>
 						{isSubmitting ? "Submitting..." : "Submit"}
 					</Button>
@@ -229,3 +252,4 @@ const EmployeeFormStep2 = ({ onBack, onSuccess, step1Data }: EmployeeFormStep2Pr
 };
 
 export { EmployeeFormStep2 };
+export type { EmployeeFormDataStep2 };

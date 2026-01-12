@@ -23,6 +23,10 @@ type FormErrors = {
 
 type EmployeeFormStep1Props = {
 	onNext: (data: EmployeeFormData) => void;
+	initialData?: Partial<EmployeeFormData>;
+	onChange?: (data: EmployeeFormData) => void;
+	hasDraft?: boolean;
+	onClearDraft?: () => void;
 };
 
 const ROLE_OPTIONS = [
@@ -77,13 +81,13 @@ const generateEmployeeId = async (department: DepartmentWithCode, allEmployees: 
 	return `${department.code}-${String(nextSeq).padStart(3, "0")}`;
 };
 
-const EmployeeFormStep1 = ({ onNext }: EmployeeFormStep1Props) => {
+const EmployeeFormStep1 = ({ onNext, initialData, onChange, hasDraft, onClearDraft }: EmployeeFormStep1Props) => {
 	const [formData, setFormData] = useState<EmployeeFormData>({
-		name: "",
-		email: "",
-		department: null,
-		role: "",
-		employeeId: "",
+		name: initialData?.name || "",
+		email: initialData?.email || "",
+		department: initialData?.department || null,
+		role: initialData?.role || "",
+		employeeId: initialData?.employeeId || "",
 	});
 
 	const [errors, setErrors] = useState<FormErrors>({});
@@ -108,6 +112,12 @@ const EmployeeFormStep1 = ({ onNext }: EmployeeFormStep1Props) => {
 		};
 		loadData();
 	}, []);
+
+	useEffect(() => {
+		if (onChange) {
+			onChange(formData);
+		}
+	}, [formData, onChange]);
 
 	const handleDepartmentSearch = useCallback(async (query: string): Promise<AutocompleteOption[]> => {
 		const filtered = await apiStep1.getDepartmentsByName(query);
@@ -264,6 +274,11 @@ const EmployeeFormStep1 = ({ onNext }: EmployeeFormStep1Props) => {
 				/>
 
 				<div className="employee-form-step1__actions">
+					{hasDraft && onClearDraft && (
+						<Button type="button" variant="secondary" onClick={onClearDraft}>
+							Clear
+						</Button>
+					)}
 					<Button type="submit" variant="primary" disabled={!isFormValid}>
 						Next
 					</Button>
