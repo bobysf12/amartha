@@ -61,3 +61,9 @@
 .button:active:not(.button--disabled) {
 	transform: translateY(1px);
 }
+
+@media (hover: none), (max-width: var(--breakpoint-md)) {
+	.button {
+		padding: var(--spacing-md) var(--spacing-lg);
+	}
+}

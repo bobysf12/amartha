@@ -72,34 +72,36 @@ const EmployeesPage = () => {
 				</Button>
 			</div>
 
-			<table className="employees-table">
-				<thead>
-					<tr>
-						<th>Photo</th>
-						<th>Name</th>
-						<th>Department</th>
-						<th>Role</th>
-						<th>Location</th>
-					</tr>
-				</thead>
-				<tbody>
-					{items.map((employee) => (
-						<tr key={employee.id}>
-							<td>
-								<img
-									src={employee.photoUrl || "/placeholder-avatar.png"}
-									alt={employee.name}
-									className="employees-table__photo"
-								/>
-							</td>
-							<td>{employee.name}</td>
-							<td>{employee.departmentName}</td>
-							<td>{employee.role}</td>
-							<td>{employee.locationName}</td>
+			<div className="employees-table-wrapper">
+				<table className="employees-table">
+					<thead>
+						<tr>
+							<th>Photo</th>
+							<th>Name</th>
+							<th>Department</th>
+							<th>Role</th>
+							<th>Location</th>
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{items.map((employee) => (
+							<tr key={employee.id}>
+								<td>
+									<img
+										src={employee.photoUrl || "/placeholder-avatar.png"}
+										alt={employee.name}
+										className="employees-table__photo"
+									/>
+								</td>
+								<td>{employee.name}</td>
+								<td>{employee.departmentName}</td>
+								<td>{employee.role}</td>
+								<td>{employee.locationName}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
 
 			<div className="employees-pagination">
 				<Button variant="secondary" disabled={page === 1} onClick={handlePrevious}>

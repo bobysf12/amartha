@@ -151,3 +151,9 @@
 .autocomplete--disabled .autocomplete__input:hover {
 	background-color: var(--color-disabled);
 }
+
+@media (max-width: 640px) {
+	.autocomplete__dropdown {
+		max-height: 150px;
+	}
+}

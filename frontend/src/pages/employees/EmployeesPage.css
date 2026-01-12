@@ -29,7 +29,13 @@
   color: var(--color-error);
 }
 
+.employees-table-wrapper {
+  overflow-x: auto;
+  padding: var(--spacing-md) 0;
+}
+
 .employees-table {
+  min-width: 800px;
   width: 100%;
   border-collapse: collapse;
   margin-bottom: var(--spacing-lg);
@@ -71,4 +77,14 @@
 .employees-pagination__info {
   font-size: var(--font-size-base);
   color: var(--color-label);
+}
+
+@media (max-width: var(--breakpoint-md)) {
+  .employees-page {
+    padding: var(--spacing-md);
+  }
+
+  .employees-table-wrapper {
+    padding: var(--spacing-sm) 0;
+  }
 }

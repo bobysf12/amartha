@@ -173,3 +173,9 @@
 .image-picker--disabled .image-picker__text {
 	color: var(--color-disabled-text);
 }
+
+@media (max-width: 640px) {
+	.image-picker__wrapper {
+		min-height: 150px;
+	}
+}
