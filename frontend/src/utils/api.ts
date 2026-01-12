@@ -116,3 +116,55 @@ export type Detail = {
 	notes?: string;
 	image?: string;
 };
+
+export type Employee = {
+	id: number;
+	name: string;
+	departmentName: string;
+	role: string;
+	locationName: string;
+	photoUrl?: string;
+};
+
+type PaginatedEmployees = {
+	items: Employee[];
+	totalCount: number;
+};
+
+export const getEmployees = async (page: number, limit: number): Promise<PaginatedEmployees> => {
+	const [basicInfoResponse, detailsList, departments, locations] = await Promise.all([
+		fetch(`${API_STEP1_BASE_URL}/basicInfo?_page=${page}&_limit=${limit}`),
+		request<Detail[]>(API_STEP2_BASE_URL, `/details?_page=${page}&_limit=${limit}`),
+		request<Department[]>(API_STEP1_BASE_URL, "/departments"),
+		request<Location[]>(API_STEP2_BASE_URL, "/locations"),
+	]);
+
+	if (!basicInfoResponse.ok) {
+		throw new Error(`API error: ${basicInfoResponse.status} ${basicInfoResponse.statusText}`);
+	}
+
+	const basicInfoList = (await basicInfoResponse.json()) as BasicInfo[];
+	const totalCountHeader = basicInfoResponse.headers.get("X-Total-Count");
+	const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+
+	const departmentMap = new Map(departments.map((d) => [d.id, d.name]));
+	const locationMap = new Map(locations.map((l) => [l.id, l.name]));
+	const detailMap = new Map(detailsList.map((d) => [d.basicInfoId, d]));
+
+	const employees: Employee[] = basicInfoList.map((info) => {
+		const detail = detailMap.get(info.id);
+		return {
+			id: info.id,
+			name: info.name,
+			departmentName: departmentMap.get(info.departmentId) || "N/A",
+			role: info.role,
+			locationName: detail ? locationMap.get(detail.locationId) || "N/A" : "N/A",
+			photoUrl: detail?.image,
+		};
+	});
+
+	return {
+		items: employees,
+		totalCount,
+	};
+};

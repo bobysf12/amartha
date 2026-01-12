@@ -1,9 +1,37 @@
 {
-    "departments": [
-        { "id": 1, "name": "Lending" },
-        { "id": 2, "name": "Funding" },
-        { "id": 3, "name": "Operations" },
-        { "id": 4, "name": "Engineering" }
-    ],
-    "basicInfo": []
+  "departments": [
+    {
+      "id": 1,
+      "name": "Lending"
+    },
+    {
+      "id": 2,
+      "name": "Funding"
+    },
+    {
+      "id": 3,
+      "name": "Operations"
+    },
+    {
+      "id": 4,
+      "name": "Engineering"
+    }
+  ],
+  "basicInfo": [
+    {
+      "name": "test",
+      "email": "bobysfa@asd.com",
+      "role": "admin",
+      "employeeId": "LEN-001",
+      "id": 1
+    },
+    {
+      "name": "test",
+      "email": "bfreedantius@gmail.com",
+      "departmentId": 1,
+      "role": "engineer",
+      "employeeId": "LEN-001",
+      "id": 2
+    }
+  ]
 }
