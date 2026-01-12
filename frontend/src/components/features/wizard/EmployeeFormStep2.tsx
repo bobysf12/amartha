@@ -27,6 +27,7 @@ type EmployeeFormStep2Props = {
 	onChange?: (data: EmployeeFormDataStep2) => void;
 	hasDraft?: boolean;
 	onClearDraft?: () => void;
+	role?: string;
 };
 
 const EMPLOYMENT_TYPE_OPTIONS = [
@@ -67,6 +68,7 @@ const EmployeeFormStep2 = ({
 	onChange,
 	hasDraft,
 	onClearDraft,
+	role,
 }: EmployeeFormStep2Props) => {
 	const [formData, setFormData] = useState<EmployeeFormDataStep2>({
 		image: null,
@@ -129,13 +131,25 @@ const EmployeeFormStep2 = ({
 
 		setIsSubmitting(true);
 		try {
-			const basicInfo = await apiStep1.createBasicInfo({
-				name: step1Data.name,
-				email: step1Data.email,
-				departmentId: step1Data.departmentId,
-				role: step1Data.role,
-				employeeId: step1Data.employeeId,
-			});
+			let basicInfo: BasicInfo;
+
+			if (role === "ops") {
+				basicInfo = await apiStep1.createBasicInfo({
+					name: "",
+					email: "",
+					departmentId: 0,
+					role: "",
+					employeeId: "",
+				});
+			} else {
+				basicInfo = await apiStep1.createBasicInfo({
+					name: step1Data.name,
+					email: step1Data.email,
+					departmentId: step1Data.departmentId,
+					role: step1Data.role,
+					employeeId: step1Data.employeeId,
+				});
+			}
 
 			const imageBase64 = formData.image ? await fileToBase64(formData.image) : undefined;
 
@@ -154,7 +168,7 @@ const EmployeeFormStep2 = ({
 		} finally {
 			setIsSubmitting(false);
 		}
-	}, [formData, step1Data, validateAllFields, onSuccess]);
+	}, [formData, step1Data, validateAllFields, onSuccess, role]);
 
 	const isFormValid = useMemo(() => {
 		return formData.employmentType !== "" && formData.location !== null;
