@@ -14,7 +14,7 @@ RUN bun run build
 FROM oven/bun:1.1.45-alpine AS backend-deps
 WORKDIR /app/backend
 COPY backend/package.json backend/bun.lock ./
-RUN bun install --frozen-lockfile --production
+RUN bun install --production
 
 FROM oven/bun:1.1.45-alpine
 RUN apk add --no-cache nginx
